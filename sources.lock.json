@@ -1,0 +1,26 @@
+[
+  {
+    "name": "AirportItlwm-source-7204c69.zip",
+    "url": "https://codeload.github.com/laobamac/itlwm/zip/7204c69",
+    "sha256": "e3c44a231b9208363224ac9d863efa3b1f1fca63fe7a4841086286e512baca64",
+    "bytes": 15912149
+  },
+  {
+    "name": "IntelBluetooth-source-v2.5.2.zip",
+    "url": "https://codeload.github.com/lshbluesky/IntelBluetoothFirmware/zip/refs/tags/v2.5.2",
+    "sha256": "e14d47723d3b0293dd90dae921d70e6f3e81f1b73cde849bfd7283246e9459be",
+    "bytes": 19536514
+  },
+  {
+    "name": "BlueToolFixup-source-2.7.2.zip",
+    "url": "https://codeload.github.com/acidanthera/BrcmPatchRAM/zip/refs/tags/2.7.2",
+    "sha256": "402b2361e5b9d69c93dc9b2e17f6a715ad60529d8992f86027f6fbcda56f5962",
+    "bytes": 9114492
+  },
+  {
+    "name": "HoRNDIS-source-mac-15.5.zip",
+    "url": "https://codeload.github.com/iKeramat/HoRNDIS/zip/refs/tags/mac-15.5",
+    "sha256": "42045f8c0425fecef18e70ce89d6f8adde6ff7e1b600c38da826483921497a06",
+    "bytes": 47821
+  }
+]

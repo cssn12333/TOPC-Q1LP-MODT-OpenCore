@@ -1,0 +1,9 @@
+# 版本记录
+
+## 2026-11-02 · 初始公开整理
+
+- 从已成功进桌面的Tahoe26.4配置逐项恢复网络。
+- 使用laobamac原生AirportItlwm，无需HeliPort；AX200蓝牙固件升级并确认耳机配对和声音。
+- 完成USB实测15通道取舍和安卓RNDIS共享；加入RTL8168M条件识别实验补丁并实测有线联网。
+- 使用OpenCore1.0.8 RELEASE、ModernView主题和苹果正常启动画面。
+- 精简禁用组件；公开包清空SMBIOS及个人MAC，增加源码、复现、状态边界和macOS交接。

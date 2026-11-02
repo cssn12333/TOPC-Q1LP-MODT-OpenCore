@@ -1,0 +1,12 @@
+# Never publish machine identity, private logs or local outputs
+.build/
+Logs/
+private/
+dist/
+*.log
+*.o
+*.dSYM/
+.DS_Store
+__pycache__/
+enco-target.txt
+device.json

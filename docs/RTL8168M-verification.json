@@ -1,0 +1,23 @@
+{
+  "experimental": true,
+  "method": "One source-compiled bounded function relink; not a full kext link. LLVM ld64.lld does not support -kext.",
+  "upstream_commit": "a3dad34ed4f1e72805ce42f6d506f6917fdf79a0",
+  "linux_reference": "39f59c72ad3a1eaab9a60f0671bc94d2bc826d21",
+  "original_binary_sha256": "a9a99d105518bf2e1905321e35c68d127bb0414bca9ec0d40ad50cc43b55ef16",
+  "patched_binary_sha256": "f58b8660a5b6eacb0265c161b72ece99822d98fe28b84463860b8187a70e8b76",
+  "new_uuid": "244BD8AD-D5EB-7E38-733A-24238A09FC98",
+  "function_VM": "0x4358",
+  "original_span": 1202,
+  "compiled_original_size": 1117,
+  "compiled_patched_size": 1148,
+  "external_relocation_moved_from": "0x4697",
+  "external_relocation_moved_to": "0x466b",
+  "differential_cases": 2560,
+  "unchanged_cases": 2556,
+  "XID6c0_H2_cases": 4,
+  "hardware_XID_confirmed": false,
+  "macOS_hardware_tested": false,
+  "status": "PASS_STATIC_AND_EMULATION_ONLY",
+  "stale_embedded_signature_removed": true,
+  "signature_state": "Unsigned local experimental kext for OpenCore injection; SIP unchanged."
+}

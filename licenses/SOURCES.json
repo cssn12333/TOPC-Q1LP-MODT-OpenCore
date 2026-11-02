@@ -1,0 +1,67 @@
+[
+  {
+    "file": "acidanthera-BrcmPatchRAM-LICENSE.txt",
+    "sha256": "a45d0bb572ed792ed34627a72621834b3ba92aab6e2cc4e04301dee7a728d753",
+    "bytes": 18027
+  },
+  {
+    "file": "acidanthera-Lilu-LICENSE.txt",
+    "sha256": "74c3ca48189b796b0d262866e67de8efba77a71516667ce68dc3a8f13c2a3c57",
+    "bytes": 1483
+  },
+  {
+    "file": "acidanthera-OpenCorePkg-LICENSE.txt",
+    "sha256": "4ca709aac88e7b297e794f464d6557203b23a4e92e792b579bb968fef2bce4c4",
+    "bytes": 1601
+  },
+  {
+    "file": "acidanthera-RestrictEvents-LICENSE.txt",
+    "sha256": "e6a427bf43f8210c082a6527a7ca5d2b5a0d22309d9828ffcdf0614d352e758f",
+    "bytes": 1479
+  },
+  {
+    "file": "acidanthera-VirtualSMC-LICENSE.txt",
+    "sha256": "5bceff635b9952d36af4e784ee02158cdddb6001584439cbd8a3520eb46a28e8",
+    "bytes": 1479
+  },
+  {
+    "file": "acidanthera-WhateverGreen-LICENSE.txt",
+    "sha256": "8f99f6082ccc808df2ece79446108bfd5c0c04da9ba81c5463568ced862a0b05",
+    "bytes": 1479
+  },
+  {
+    "file": "iKeramat-HoRNDIS-LICENSE.txt",
+    "sha256": "4db3e8d7fb2eb1778dfa4769a1809e0ff8210d90c086720cc606ec53784fdb70",
+    "bytes": 38084
+  },
+  {
+    "file": "Intel-wireless-firmware-LICENSE.txt",
+    "sha256": "2f51946732a6e93a224fec4ab49b93ebd106aef6c52b1ebfa490795a19fac21f",
+    "bytes": 2041
+  },
+  {
+    "file": "laobamac-itlwm-LICENSE.txt",
+    "sha256": "8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643",
+    "bytes": 18092
+  },
+  {
+    "file": "lshbluesky-IntelBluetoothFirmware-LICENSE.txt",
+    "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "bytes": 35149
+  },
+  {
+    "file": "Mieze-GPL-2.0.txt",
+    "sha256": "b6babac7d1a5ba50e2896fe989ee2f8f83823909bee8a010a4ca0ff76a316501",
+    "bytes": 18010
+  },
+  {
+    "file": "OcBinaryData-NOTICE.txt",
+    "sha256": "ae5b8f7e67ff7e570dcad9350f555b54eec0e55eda8e4249dbeb60548756ce61",
+    "bytes": 280
+  },
+  {
+    "file": "USBToolBox-NOTICE.txt",
+    "sha256": "472ec858052e24d4b6a6294b2fb3813f6afc001acd63088a3713f8eb52f654d5",
+    "bytes": 278
+  }
+]
