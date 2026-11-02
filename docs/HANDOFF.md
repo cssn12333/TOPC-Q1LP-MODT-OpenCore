@@ -39,5 +39,5 @@ AX200在HS13，FirmwareLoaded=true曾不足以证明本次重新上传。断电�
 
 把仓库、个人EFI备份和这份交接带过去。官方桌面客户端下载页当前标注macOS Apple Silicon，本机Intel平台不要假设可安装该桌面包；先用macOS浏览器使用ChatGPT并提供采集日志。若使用Codex CLI，按官方文档核对本机架构对应安装方式与授权。Windows聊天的本机文件权限不会自动转移。
 官方参考：https://learn.chatgpt.com/docs/app ，https://learn.chatgpt.com/docs/codex/cli 。
-scripts/TestSystem.command是手动本地采集，可跳过CPU负载。新脚本对powermetrics设置超时，不安装后台服务；其完整新流程仍待实机验证。
+在macOS终端进入仓库目录后，运行 `sh scripts/TestSystem.command` 开始手动本地采集，可跳过CPU负载。通过Git克隆时脚本也保留可执行权限；ZIP解压工具若丢失权限，仍可使用上述sh命令。新脚本对powermetrics设置超时，不安装后台服务；其完整新流程仍待实机验证。
 日志保存scripts/Logs（被Git忽略）；公开前删除序列号、UUID、MAC、SSID、个人路径。诊断失败应保留错误，不把缺数据当成正常结果。
