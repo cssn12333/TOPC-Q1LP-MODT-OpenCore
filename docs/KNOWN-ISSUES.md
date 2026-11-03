@@ -6,7 +6,7 @@
 - USB地图按15端口限制取舍，HS01/02对应插口没有SuperSpeed；USB-C双面未完整验证。
 - 有线采用本地局部重链接实验补丁，非Mieze官方发行；XID未现场直接测量。
 - CPU性能/拓扑、Stats显卡数据显示、当前Tahoe睡眠仍待实测排查。
-- ALC897已配置AppleALC+SimpleHDA、alcid=12，文件和结构校验不代表实机出声；音频尚待确认。公开包必须先运行prepare_audio.py补齐驱动。
+- ALC897使用AppleALC+SimpleHDA、alcid=12，本机基本播放已获用户确认；前置、麦克风与睡眠恢复尚未分别验证。公开包必须先运行prepare_audio.py补齐驱动。
 - 内置硬盘与U盘曾核对启动文件完全一致，但用户报告硬盘启动在苹果进度条后黑屏；根因未确定。避免把旧固件入口或显卡初始化当作已确认原因。
 - 公开模板留空SMBIOS身份，并去掉个性化CPU名称和fallbackMAC，不能直接当成作者已验证的个人EFI启动。
 - ModernView由维护者提供本地素材，源作者/独立许可未附带；不把它声明为本仓库MIT作品。见THIRD_PARTY。

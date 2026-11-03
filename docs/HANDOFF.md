@@ -33,7 +33,7 @@ Stats3.0.24仍缺部分显示；不要先归咎显卡未驱动。下一步核对
 
 ## 板载音频与启动迁移
 
-ALC897已配置AppleALC1.9.8 + SimpleHDA1.0.0 RELEASE、alcid=12，SIP保持启用，正常启动日志与跑码关闭。实际出声尚未确认；公开包必须先运行 `python3 scripts/prepare_audio.py`。参见[AUDIO.md](AUDIO.md)。
+ALC897已配置AppleALC1.9.8 + SimpleHDA1.0.0 RELEASE、alcid=12，SIP保持启用，正常启动日志与跑码关闭。2026-11-03用户确认板载声卡可以使用，基本播放已验证；前置、麦克风、睡眠恢复尚未分别确认。公开包必须先运行 `python3 scripts/prepare_audio.py`。参见[AUDIO.md](AUDIO.md)。
 
 内置SATA硬盘与U盘曾只读核对249个工作文件完全相同，用户仍报告硬盘经过同样OC菜单、选Macintosh后在苹果进度条后黑屏。固件存在原生Mac OS X旧入口，本机New Boot Entry才明确指向该盘EFI/BOOT/BOOTx64.efi，但不能仅凭旧入口断定这次黑屏原因。随后音频配置增加4个驱动文件，当前个人EFI为253个工作文件；这次新增音频不代表前述黑屏已解决。
 

@@ -32,7 +32,7 @@ BIOS核显保持关闭，这是本机既有睡眠条件。不要把兼容CPUID A
 | CPU最高睿频 | XCPM已加载，上限参数50倍频；未完成单/多线程负载采样，未证实达到5GHz |
 | Stats显卡数据显示 | 仍待排查；底层曾输出温度、功耗和显存频率，Stats3.0.24显示不完整 |
 | AirDrop / AWDL | 当前AirportItlwm分支不支持；蓝牙可用不等于完整连续互通 |
-| 板载ALC897模拟声卡 | 已配置 AppleALC 1.9.8 + SimpleHDA 1.0.0，alcid=12；实际出声待实测，见[音频准备](docs/AUDIO.md) |
+| 板载ALC897模拟声卡 | 已配置 AppleALC 1.9.8 + SimpleHDA 1.0.0，alcid=12；本机已确认可用；前置、麦克风与睡眠恢复待分别验证，见[音频准备](docs/AUDIO.md) |
 
 ## 使用
 

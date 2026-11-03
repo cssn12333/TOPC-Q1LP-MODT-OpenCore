@@ -59,7 +59,7 @@ def main():
             destination.write_bytes(data)
     verify_payload(efi)
     print('Pinned SimpleHDA 1.0.0 RELEASE verified; EFI audio dependencies ready.')
-    print('Use your own SMBIOS and verify the codec layout before booting. Audio awaits hardware testing.')
+    print('Use your own SMBIOS and verify codec layout, ports and microphone on your hardware.')
 
 
 if __name__ == '__main__':
