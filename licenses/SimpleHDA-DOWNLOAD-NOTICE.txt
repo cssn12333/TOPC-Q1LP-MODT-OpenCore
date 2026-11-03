@@ -1,0 +1,5 @@
+SimpleHDA 1.0.0 is obtained directly from its author by scripts/prepare_audio.py.
+This repository and its public archives do not redistribute the SimpleHDA binary or its embedded AppleHDA payload.
+Copyright and terms remain with the original authors and Apple; this repository's MIT terms do not grant rights to those components.
+Upstream release: https://github.com/laobamac/SimpleHDA/releases/tag/v1.0.0
+Upstream notice: https://github.com/laobamac/SimpleHDA/blob/v1.0.0/NOTICE.md

@@ -3,13 +3,23 @@
 set -u
 umask 077
 HERE=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+PERFORMANCE_ONLY=0
+case "${1:-}" in
+  --performance-only) PERFORMANCE_ONLY=1;;
+  '') :;;
+  *) echo '用法：sh scripts/TestSystem.command [--performance-only]'; exit 2;;
+esac
 if [ "$(uname -s)" != Darwin ]; then
   echo 'Run from 本目录 in macOS.'; exit 1
 fi
 if [ "$(id -u)" -eq 0 ]; then
   echo '请正常双击本脚本运行，不要使用 sudo 启动整个脚本。'; exit 1
 fi
-echo '本次测试：目标蓝牙设备 连接、CPU 短时频率采样、显卡监控数据。'
+if [ "$PERFORMANCE_ONLY" -eq 1 ]; then
+  echo '本次只采集CPU和显卡，跳过蓝牙配对与连接步骤。'
+else
+  echo '本次测试：目标蓝牙设备连接、CPU短时频率采样、显卡监控数据。'
+fi
 echo '不会删除配对记录，不修改系统电源设置，不常驻。'
 if ! /usr/bin/sudo -v; then exit 1; fi
 STAMP=$(date +%Y%m%d-%H%M%S)
@@ -27,6 +37,7 @@ for APP in /Applications/Stats.app "$HOME/Applications/Stats.app"; do
     /usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$APP/Contents/Info.plist" >>"$OUT/stats-version.txt" 2>&1
   fi
 done
+if [ "$PERFORMANCE_ONLY" -eq 0 ]; then
 echo '蓝牙：请先完全退出“系统设置”，收起控制中心，让 目标蓝牙设备 进入配对模式。'
 echo '耳机请断开与手机/其他电脑的连接；本次先直接连接，不先持续搜索。'
 printf '准备好后按回车：'; read -r READY
@@ -46,6 +57,8 @@ printf '%s\n' "$BT_RESULT" >"$OUT/bluetooth-result.txt"
 /usr/sbin/system_profiler SPBluetoothDataType -timeout 20 >"$OUT/bluetooth-after.txt" 2>&1
 /usr/bin/log show --last 5m --style compact --info --debug --predicate 'process == "bluetoothd"' >"$OUT/bluetoothd-log.txt" 2>&1
 /usr/bin/sudo /sbin/dmesg >"$OUT/dmesg-after-connect.txt" 2>&1
+fi
+/usr/sbin/ioreg -a -r -c IOAccelerator >"$OUT/gpu-before.plist" 2>"$OUT/gpu-before-errors.txt"
 echo 'CPU：接下来约30秒，依次空闲、单工作线程、多工作线程采样。'
 echo '这是短时负载测试，不修改倍频/电压/功耗限制。关闭其他重负载程序后继续。'
 printf '按回车开始；输入 s 跳过：'; read -r CPU_CHOICE
@@ -88,6 +101,9 @@ if [ "$CPU_CHOICE" != s ] && [ -x /usr/bin/perl ]; then
   done
 fi
 /usr/bin/pmset -g therm >"$OUT/thermal-after.txt" 2>&1
+echo '显卡：可打开已有的本地视频或图形程序，并保持Stats窗口可见，再采集一次驱动节点。'
+printf '准备好后按回车采集；输入s表示未准备图形负载：'; read -r GPU_CHOICE
+printf 'User workload response: %s\n' "$GPU_CHOICE" >"$OUT/gpu-workload-response.txt"
 /usr/sbin/ioreg -l -w 0 -p IOService >"$OUT/ioreg.txt" 2>&1
 /usr/sbin/ioreg -a -r -c IOAccelerator >"$OUT/gpu-accelerators.plist" 2>"$OUT/gpu-accelerators-errors.txt"
 /usr/bin/kmutil showloaded >"$OUT/kexts.txt" 2>&1
@@ -95,5 +111,5 @@ if [ -f "$HERE/../EFI/OC/config.plist" ]; then
   /bin/cp "$HERE/../EFI/OC/config.plist" "$OUT/adjacent-config-reference.plist"
 fi
 echo "采集完成：$OUT"
-echo '可以返回Windows，告诉我耳机是否连接/出声，以及Stats显示情况。'
+echo '请记录CPU采样结果、Stats缺失的字段，以及采集显卡时运行的程序。日志只保存在本地。'
 printf '按回车关闭：'; read -r DONE

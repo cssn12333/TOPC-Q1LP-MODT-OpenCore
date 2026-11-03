@@ -1,0 +1,14 @@
+{
+  "component": "SimpleHDA",
+  "version": "1.0.0",
+  "release": "https://github.com/laobamac/SimpleHDA/releases/tag/v1.0.0",
+  "notice": "https://github.com/laobamac/SimpleHDA/blob/v1.0.0/NOTICE.md",
+  "url": "https://github.com/laobamac/SimpleHDA/releases/download/v1.0.0/SimpleHDA-Tahoe-v1.0.0-RELEASE.zip",
+  "bytes": 1667587,
+  "sha256": "89198256664078c91155d673ee7cebb08134dad1b71d5e34b0aa4ef0d4877f8f",
+  "archive_prefix": "SimpleHDA-Tahoe-v1.0.0-RELEASE/",
+  "files": {
+    "SimpleHDA.kext/Contents/Info.plist": "b9916b1919a73858de2940c5bb8f39951e92e3c1fb64d84c8cac69dd36c10f92",
+    "SimpleHDA.kext/Contents/MacOS/SimpleHDA": "f74c9dbddf43266c97c5f72cd76498bce1d6b5bd3731a947be62f1378b4c7954"
+  }
+}

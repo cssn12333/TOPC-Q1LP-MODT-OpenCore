@@ -1,9 +1,9 @@
 # TOPC Q1LP MODT · OpenCore · macOS Tahoe
 
 TOPC Q1LP MODT 平台、微星魔龙 Radeon RX 6800 XT、Intel AX200 的实机 EFI 与排障交接。
-维护者：cssn12333。记录日期：2026-11-02；目标系统 macOS Tahoe 26.4（25E246），OpenCore 1.0.8 RELEASE。
+维护者：cssn12333。更新日期：2026-11-03；目标系统 macOS Tahoe 26.4（25E246），OpenCore 1.0.8 RELEASE。
 
-**公开 EFI 是去除机器身份的模板，配置自己的 SMBIOS 后才能使用。** 本机成功不代表所有同名板卡、BIOS或ES批次通用；未宣称完美、全功能或长期稳定。
+**公开 EFI 是去除机器身份的模板：先运行 `python3 scripts/prepare_audio.py` 补齐 SimpleHDA，再配置自己的 SMBIOS 后才能使用。** 本机成功不代表所有同名板卡、BIOS或ES批次通用；未宣称完美、全功能或长期稳定。
 
 ## 硬件和条件
 
@@ -32,11 +32,11 @@ BIOS核显保持关闭，这是本机既有睡眠条件。不要把兼容CPUID A
 | CPU最高睿频 | XCPM已加载，上限参数50倍频；未完成单/多线程负载采样，未证实达到5GHz |
 | Stats显卡数据显示 | 仍待排查；底层曾输出温度、功耗和显存频率，Stats3.0.24显示不完整 |
 | AirDrop / AWDL | 当前AirportItlwm分支不支持；蓝牙可用不等于完整连续互通 |
-| 板载ALC897模拟声卡 | 未启用；Tahoe音频方案未处理 |
+| 板载ALC897模拟声卡 | 已配置 AppleALC 1.9.8 + SimpleHDA 1.0.0，alcid=12；实际出声待实测，见[音频准备](docs/AUDIO.md) |
 
 ## 使用
 
-1. 阅读[安装与迁移](docs/INSTALL.md)和[已知问题](docs/KNOWN-ISSUES.md)。备份现有EFI，用独立U盘先测试。
+1. 先运行 `python3 scripts/prepare_audio.py`（Windows可用 `python`），从上游下载并校验固定版 SimpleHDA。公开仓库和附件不转存该专有载荷；未完成这一步不要复制EFI启动。然后阅读[安装与迁移](docs/INSTALL.md)和[已知问题](docs/KNOWN-ISSUES.md)。备份现有EFI，用独立U盘先测试。
 2. 为MacPro7,1生成**自己的**SystemSerialNumber、MLB、SystemUUID、ROM；可使用[GenSMBIOS](https://github.com/corpnewt/GenSMBIOS)。填写`EFI/OC/config.plist`，或运行`scripts/configure_identity.py --help`。
 3. 按自己硬件验证USB映射与ACPI路径。不要将本机地图当作通用USB补丁。
 4. 使用OpenCore1.0.8配套ocvalidate检查配置，再复制EFI到U盘。保留可启动的Windows入口与旧EFI。
@@ -53,6 +53,7 @@ BIOS核显保持关闭，这是本机既有睡眠条件。不要把兼容CPUID A
 - `patches/rtl8168m/`、`vendor/`：自定义网卡修改、完整固定版本源代码和原始驱动二进制。
 - `scripts/`：身份配置、SDK准备、校验及macOS一次性诊断。
 - `docs/HANDOFF.md`：继续排查CPU/GPU的交接；`docs/USB.md`为映射取舍。
+- `docs/AUDIO.md`：板载ALC897配置、驱动准备与实测步骤。
 - `docs/ETHERNET.md`：网卡补丁原理、边界和复现步骤。
 - `THIRD_PARTY.md`、`licenses/`：组件来源与各自许可证；仓库自有文档/脚本许可不替代上游许可。
 

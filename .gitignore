@@ -10,3 +10,5 @@ dist/
 __pycache__/
 enco-target.txt
 device.json
+# Prepared privately from the pinned upstream release; never publish the payload.
+/EFI/OC/Kexts/SimpleHDA.kext/

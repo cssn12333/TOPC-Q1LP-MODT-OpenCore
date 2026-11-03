@@ -1,5 +1,10 @@
 [
   {
+    "file": "acidanthera-AppleALC-LICENSE.txt",
+    "sha256": "49f8ba3af70ae3fe5883f68759f7ddab40bd665b35439ea6b3f72f1b5b3229f7",
+    "bytes": 1483
+  },
+  {
     "file": "acidanthera-BrcmPatchRAM-LICENSE.txt",
     "sha256": "a45d0bb572ed792ed34627a72621834b3ba92aab6e2cc4e04301dee7a728d753",
     "bytes": 18027
@@ -58,6 +63,11 @@
     "file": "OcBinaryData-NOTICE.txt",
     "sha256": "ae5b8f7e67ff7e570dcad9350f555b54eec0e55eda8e4249dbeb60548756ce61",
     "bytes": 280
+  },
+  {
+    "file": "SimpleHDA-DOWNLOAD-NOTICE.txt",
+    "sha256": "61fb07828c29e68727edfd155c3ad5da1381f0bb1f54db393d800450277c5208",
+    "bytes": 483
   },
   {
     "file": "USBToolBox-NOTICE.txt",

@@ -3,6 +3,10 @@
 这不是通用EFI，也不包含macOS安装镜像。系统版本限定Darwin25.x；不要直接用于Sequoia或其他CPU。
 公开模板身份留空是有意设置，ocvalidate结构通过不等于可直接启动或iServices已配置。
 
+## 准备音频依赖
+
+克隆或解压公开包后，先运行 `python3 scripts/prepare_audio.py` 下载固定版SimpleHDA，再运行 `python3 scripts/validate.py`。Windows可用 `python`。这是当前配置的必需步骤；详见[ALC897音频](AUDIO.md)。公开附件没有内嵌该专有驱动。
+
 ## 使用前
 
 - 核对TOPC Q1LP MODT的具体BIOS、PCI/USB设备ID；本机CPUID B0671，CPU spoof为A0655。
