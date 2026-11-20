@@ -1,7 +1,7 @@
 # TOPC Q1LP MODT · OpenCore · macOS Tahoe
 
 TOPC Q1LP MODT 平台、微星魔龙 Radeon RX 6800 XT、Intel AX200 的实机 EFI 与排障交接。
-维护者：cssn12333。更新日期：2026-11-03；目标系统 macOS Tahoe 26.4（25E246），OpenCore 1.0.8 RELEASE。
+维护者：cssn12333。更新日期：2026-11-21；目标系统 macOS Tahoe 26.4（25E246 / 25G342），OpenCore 1.0.8 RELEASE。
 
 **公开 EFI 是去除机器身份的模板：先运行 `python3 scripts/prepare_audio.py` 补齐 SimpleHDA，再配置自己的 SMBIOS 后才能使用。** 本机成功不代表所有同名板卡、BIOS或ES批次通用；未宣称完美、全功能或长期稳定。
 
@@ -29,7 +29,7 @@ BIOS核显保持关闭，这是本机既有睡眠条件。不要把兼容CPUID A
 | 安卓USB共享 | Xiaomi 15 Pro实测正常，HoRNDIS |
 | USB映射 | 实测选择15条逻辑通道；全部已测USB2口保留，部分高速通道取舍 |
 | 睡眠/唤醒 | 旧15.4.1在关核显时可用；当前Tahoe长期/反复测试未完成 |
-| CPU最高睿频 | XCPM已加载，上限参数50倍频；未完成单/多线程负载采样，未证实达到5GHz |
+| CPU最高睿频 | 已修复：加入 CPUFriend 1.3.0 + CPUFriendDataProvider（将 MacPro7,1 频率矢量 `hwp` 改为 `off`，绕开 13 代 P 核 HWP 78.741 MHz 缩放锁频）；实测单核 P 核突破 4.0 GHz 达 4.72~4.81 GHz（上限 5.0 GHz），多核全部 8 个 P 核达 4.40 GHz、E 核达 3.67 GHz，瞬时功耗 96W@44°C；更高倍频（如 P=5.2 / E=4.0）直接在 BIOS 设定，macOS XCPM 按 `TURBO_PCT=100` 自动跟随 |
 | Stats显卡数据显示 | 仍待排查；底层曾输出温度、功耗和显存频率，Stats3.0.24显示不完整 |
 | AirDrop / AWDL | 当前AirportItlwm分支不支持；蓝牙可用不等于完整连续互通 |
 | 板载ALC897模拟声卡 | 已配置 AppleALC 1.9.8 + SimpleHDA 1.0.0，alcid=12；本机已确认可用；前置、麦克风与睡眠恢复待分别验证，见[音频准备](docs/AUDIO.md) |

@@ -13,6 +13,7 @@ assert '-v' not in c['NVRAM']['Add']['7C436110-AB2A-4BBB-A880-FE41995C9F82']['bo
 assert c['NVRAM']['Add']['7C436110-AB2A-4BBB-A880-FE41995C9F82']['csr-active-config']==bytes(4)
 assert not any(c['Misc']['Debug'][x] for x in ['AppleDebug','ApplePanic','SysReport','Target','DisplayLevel'])
 drivers=[x['BundlePath'] for x in c['Kernel']['Add']]
+assert drivers.index('Lilu.kext') < drivers.index('CPUFriend.kext') < drivers.index('CPUFriendDataProvider.kext')
 assert drivers.index('Lilu.kext') < drivers.index('AppleALC.kext') < drivers.index('SimpleHDA.kext')
 def port_counts(v):
  if isinstance(v,dict):

@@ -1,25 +1,28 @@
 # macOS排查交接
 
-更新2026-11-03，目标Tahoe26.4 25E246；当前从Windows整理，所有原始日志和机器身份不在GitHub。
+更新2026-11-21，目标Tahoe26.4（25E246 / 25G342）；所有原始日志和机器身份不在GitHub。
 
 ## 已知可用基线
 
-OpenCore1.0.8 RELEASE，Lilu1.7.2，WhateverGreen1.7.1，MacPro7,1，CPUID A0655，ProvideCurrentCpuInfo=true，AppleXcpmCfgLock=true。
+OpenCore1.0.8 RELEASE，Lilu1.7.2，CPUFriend1.3.0 + CPUFriendDataProvider（`MacPro7,1` 改 `hwp=off`），WhateverGreen1.7.1，MacPro7,1，CPUID A0655，ProvideCurrentCpuInfo=true，AppleXcpmCfgLock=true。
 RX6800XT使用agdpmod=pikera；核显BIOS关闭。SecureBootModel Disabled，但SIP保持启用，未做根补丁。
 蓝牙保留实测可用的FW2.5.2 DEBUG + IntelBTPatcher2.5.2 DEBUG + BlueToolFixup2.7.2。
 DEBUG是组件构建类型，不等于屏幕跑码；正常EFI已去除-v/临时调试参数/DebugEnhancer，并使用RELEASE OpenCore。
-不要无依据一起升级/更换全部功能驱动。无线、有线、USB共享和ENCO X3声音已有用户确认。
+不要无依据一起升级/更换全部功能驱动。无线、有线、USB共享、板载音频播放、ENCO X3声音和CPU正常睿频已有用户/实机确认。
 
-## CPU下一步
+## CPU睿频排查结果（2026-11-21 已解决）
 
-主要在macOS验证XCPM和实际频率表现，同时保留Windows下相同单/多线程负载的对照。如果Windows也受限，先检查BIOS、功耗和温度；如果Windows正常而macOS异常，再聚焦macOS电源管理和工具读数。两边都应先确认工具支持这颗ES混合架构，不把平均频率当成最高P核频率。
+根因已实机定位并经XNU内核反汇编与指令周期测频双重确认：
+- `MacPro7,1` 系统电源表 `Mac-27AD2F918AE68F61.plist` 默认设置 `hwp=on`。
+- Intel 12/13/14代 P-Core 的 HWP 缩放单位为 `78.741 MHz/单位`（`HYBRID_SCALING_FACTOR_ADL`），而 macOS XNU 按 10 代 `100 MHz/单位` 写入上限 `50`（和低档 `20`），导致 P-Core 0~3 实际被压在 `50 × 78.741 ≈ 3.88~3.90 GHz`（最高封顶 4.0 GHz）、P-Core 4~7 在 `request=20` 时被压在 `1.50 GHz`；E-Core 因 1:1 缩放表现为 2.0 GHz。
+- XNU `_xcpm_bootstrap` 对 Comet Lake 伪装（`0xA5`）默认不开启 HWP，仅在读取 `FrequencyVectors` 中 `hwp=on` 时启用。
+- 加入 `CPUFriend.kext` 1.3.0 RELEASE（原生支持 `KernelVersion::Tahoe`）和 `CPUFriendDataProvider.kext`（仅将 `hwp` 改为 `off`）后，XCPM 回退至传统 `IA32_PERF_CTL` 1:1 倍频控制。
 
-用户在Intel Power Gadget看到约4.0GHz。实际Q1LP为ES，24C32T；不能用显示名14900KS的零售规格判断。
-旧固件读取MSR_TURBO_RATIO_LIMIT=0x2C2C2E2E30303232；macOS XCPM mode=1，hard/soft最高允许倍频50。
-这些只说明允许上限，不证明真实核心达到5GHz。单/多线程采样未完成，不能宣布解决或锁频。
-macOS上报32物理/32逻辑、HT Disabled，与真实24C32T不同，是待核对的混合架构拓扑显示；CpuTopologyRebuild当前不加载。
-先用powermetrics/现有Power Gadget记录空闲、单工作线程、多工作线程频率、温度、功耗和限制原因；将P/E核心频率分开理解。
-不要仅根据1.7GHz静态Processor Speed/sysctl值、平均频率、或错误拓扑改busratio/功耗。CPUFriend尚未加入。
+实机复测前后对比（默认 BIOS 固件 `MSR_TURBO_RATIO_LIMIT=0x2C2C2E2E30303232`）：
+- 修复前（`hwp=on`）：单核 P-Core 实测最高 `3.88 GHz`，16线程负载 P0~P3 `3.86~3.90 GHz`、P4~P7 `1.50 GHz`、E 核 `2.00 GHz`，整包 `58W`。
+- 修复后（`hwp=off`）：单核 P-Core 指令周期实测 `4.72 GHz`、`PowerLog` 峰值 `4.81~5.00 GHz`；16线程负载下全部 8 个 P-Core 达 `4.36~4.40 GHz`（满额 44x 全核睿频）、E 核达 `3.67 GHz`，整包瞬时释放 `96W`（温度 `44°C`）。
+- 更高目标倍频（如 BIOS 已测试稳定的 P=5.2 GHz / E=4.0 GHz 与自定义功耗墙）应直接在主板 BIOS 中设定；macOS XCPM 频率矢量最高档为 `TURBO_PCT=100`，会自动按 BIOS 上报的新上限动态睿频，无需再改 EFI 或关闭 SIP。
+- macOS 仍上报 32 物理/32 逻辑、HT Disabled；`CpuTopologyRebuild` v2.0.2 在 Tahoe 26 存在调度崩溃风险，继续不加载。
 
 ## 显卡下一步
 

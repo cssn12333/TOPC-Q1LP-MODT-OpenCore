@@ -7,6 +7,7 @@
 | OpenCore / OpenCanopy / OpenRuntime | [acidanthera/OpenCorePkg](https://github.com/acidanthera/OpenCorePkg)，1.0.8 RELEASE |
 | HfsPlus、字体、标签 | [acidanthera/OcBinaryData](https://github.com/acidanthera/OcBinaryData) |
 | Lilu | [acidanthera/Lilu](https://github.com/acidanthera/Lilu)，1.7.2 |
+| CPUFriend / CPUFriendDataProvider | [acidanthera/CPUFriend](https://github.com/acidanthera/CPUFriend/releases/tag/1.3.0)，1.3.0 RELEASE（原生支持 macOS 26 Tahoe）；BSD许可见licenses；DataProvider 由 MacPro7,1 系统电源表改 `hwp=off` 生成 |
 | WhateverGreen | [acidanthera/WhateverGreen](https://github.com/acidanthera/WhateverGreen)，1.7.1 |
 | VirtualSMC / SMCProcessor | [acidanthera/VirtualSMC](https://github.com/acidanthera/VirtualSMC)，1.3.8 |
 | RestrictEvents | [acidanthera/RestrictEvents](https://github.com/acidanthera/RestrictEvents)，1.1.6 |
