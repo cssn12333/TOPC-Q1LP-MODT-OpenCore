@@ -34,3 +34,4 @@
   - 16 线程负载下全部 8 个 P-Core 均达 `4.36~4.40 GHz`（原 P4~P7 仅 `1.50 GHz`），E-Core 达 `3.67 GHz`，整包功耗释放至 `96W`（温度 `44°C`）。
   - 更高目标倍频（例如 BIOS 已验证稳定的 P 核 5.2 GHz / E 核 4.0 GHz）直接在主板 BIOS 设定倍频与功耗墙，macOS XCPM 会按 `TURBO_PCT=100` 自动跟随，无需再修改 EFI 或关闭 SIP。
 - 未加入 `CpuTopologyRebuild.kext`（v2.0.2 在 Tahoe 26 存在调度崩溃风险）。
+- 补充文档记录：`MacPro7,1` 工作站调度与轻载功耗特征（低编号优先聚集至 P0~P3、6ms 冲顶 Race-to-Idle、1.5% 轻载约 55~66W/44~48°C）、常规 EFI/`CPUFriend` 不可替代 BIOS 超频（如 P=5.2 / E=4.0）的底层原因，以及局域网 AirPlay 发送端超时与双网卡/TUN 路由的排查结论。

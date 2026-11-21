@@ -21,8 +21,14 @@ DEBUG是组件构建类型，不等于屏幕跑码；正常EFI已去除-v/临时
 实机复测前后对比（默认 BIOS 固件 `MSR_TURBO_RATIO_LIMIT=0x2C2C2E2E30303232`）：
 - 修复前（`hwp=on`）：单核 P-Core 实测最高 `3.88 GHz`，16线程负载 P0~P3 `3.86~3.90 GHz`、P4~P7 `1.50 GHz`、E 核 `2.00 GHz`，整包 `58W`。
 - 修复后（`hwp=off`）：单核 P-Core 指令周期实测 `4.72 GHz`、`PowerLog` 峰值 `4.81~5.00 GHz`；16线程负载下全部 8 个 P-Core 达 `4.36~4.40 GHz`（满额 44x 全核睿频）、E 核达 `3.67 GHz`，整包瞬时释放 `96W`（温度 `44°C`）。
-- 更高目标倍频（如 BIOS 已测试稳定的 P=5.2 GHz / E=4.0 GHz 与自定义功耗墙）应直接在主板 BIOS 中设定；macOS XCPM 频率矢量最高档为 `TURBO_PCT=100`，会自动按 BIOS 上报的新上限动态睿频，无需再改 EFI 或关闭 SIP。
+- 更高目标倍频（如 BIOS 已测试稳定的 P=5.2 GHz / E=4.0 GHz 与自定义功耗墙）应直接在主板 BIOS 中设定：常规 OpenCore EFI 与 `CPUFriend` 只能按固件 `MSR_TURBO_RATIO_LIMIT` 上限调频，不能直接软超频；也不建议用自定义 UEFI `.efi` 驱动在引导阶段硬写超频 MSR（易被 `OC_LOCK` 阻断卡死，且缺少核心电压/防掉压 LLC/电流墙协同）。BIOS 调整后，macOS XCPM 频率矢量最高档 `TURBO_PCT=100` 会自动跟随新上限，无需再改 EFI 或关闭 SIP。
+- 实测调度与待机策略：ACPI 逻辑核顺序为 `core 0~15`（8 个 P-Core）在前、`core 16~31`（16 个 E-Core）在后，macOS 低编号核心优先聚集（Low-index packing）策略天然将轻载单核任务调度在 P0~P3（`core 0~7`），16 个 E-Core 轻载基本休眠；`MacPro7,1` 工作站电源表（`2000→2500→3000→3500→100% TURBO`，6ms 冲顶、100ms 粘滞、`pcps_mode=0`）为典型的 Race-to-Idle 激进单核响应策略，1.5% 轻载待机实测约 `55~66W / 44~48°C`。
 - macOS 仍上报 32 物理/32 逻辑、HT Disabled；`CpuTopologyRebuild` v2.0.2 在 Tahoe 26 存在调度崩溃风险，继续不加载。
+
+## 隔空播放（AirPlay）与隔空投送（AirDrop）边界（2026-11-21 记录）
+
+- **AirDrop（隔空投送文件）**：强依赖 AWDL，当前 Intel AX200 + `AirportItlwm` 驱动不支持。
+- **AirPlay（Apple Music 隔空播放）**：实测 `fairplayd` 0 报错，非 DRM 阻断；由于无 `awdl0` 点对点兜底，发送端完全依赖干净的同网段局域网 TCP + mDNS。实机日志抓到的发送端超时（`AirPlayXPCHelper` `-6722 kTimeoutErr`）系有线/无线双网卡指向不同网关路由冲突、叠加代理 TUN 模式未排除局域网及 IPv6 ULA（`fc00::/7`、`fe80::/10`）所致；保持与目标设备同路由单网卡并在 TUN 中排除局域网网段即可规避。
 
 ## 显卡下一步
 

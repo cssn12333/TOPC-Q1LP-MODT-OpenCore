@@ -1,7 +1,7 @@
 # 已知限制
 
 - 当前为单台设备、单套固件的工作记录，长期稳定性、冷/热启动和睡眠压力测试不完整。
-- 当前AirportItlwm Tahoe alpha不支持AWDL/AirDrop/WPA3-only/强制PMF/MLO；HE默认关闭。
+- 当前AirportItlwm Tahoe alpha不支持AWDL/AirDrop/WPA3-only/强制PMF/MLO；HE默认关闭。局域网 AirPlay 隔空播放不依赖 AWDL（`fairplayd` 正常），但发送端需避免双网卡异网关冲突与代理 TUN 劫持局域网/IPv6 路由。
 - AX200蓝牙音频成功不等于全部BLE HID、通话、Handoff、自动解锁已验证。
 - USB地图按15端口限制取舍，HS01/02对应插口没有SuperSpeed；USB-C双面未完整验证。
 - 有线采用本地局部重链接实验补丁，非Mieze官方发行；XID未现场直接测量。
